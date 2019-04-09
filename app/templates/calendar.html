@@ -2,35 +2,57 @@
 
 {% block body %}
 
-<div class="container">
-  <h1 class="text-center">{{monthName}}, {{year}}</h1>
-  <hr>
-  <div class="grid-container">
-      {% for day in weekdays%}
-      <div class="grid-item text-center">
-        <h3>{{day}}</h3>
-      </div>
-      {% endfor %}
-      {% for day in month %}
-      <div class="grid-item">
-        <div class="list-group">
-          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{day}}</h5>
-              <small>♥</small>
-            </div>
-            <p class="mb-1">
-              <ul>
-                <li>Event 1</li>
-                <li>Event 2</li>
-              </ul>
-            </small>
-          </a>
-        </div>
-      </div>
-      {% endfor %}
-  </div>
-  <br />
+<div class="container-fluid">
+	<div class="row text-center">
+    <div class="col-md-2">
+      <a href="/calendar/{{monthName}}/{{prevYear}}" class="btn btn-primary btn-sm" role="button">Previous Year</a>
+		</div>
+		<div class="col-md-2">
+      <a href="/calendar/{{prevMonthName}}/{{year}}" class="btn btn-primary btn-sm" role="button">Previous Month</a>
+		</div>
+		<div class="col-md-4">
+      <h1 class="text-center">{{monthName}}, {{year}}</h1>
+      <hr>
+		</div>
+    <div class="col-md-2">
+      <a href="/calendar/{{nextMonthName}}/{{year}}" class="btn btn-primary btn-sm" role="button">Next Month</a>
+    </div>
+    <div class="col-md-2">
+      <a href="/calendar/{{monthName}}/{{nextYear}}" class="btn btn-primary btn-sm" role="button">Next Year</a>
+		</div>
+	</div>
 </div>
+
+<div class="grid-container">
+    {% for day in weekdays%}
+    <div id="daylabel" class="grid-item text-center align-bottom">
+      <h3>{{day}}</h3>
+    </div>
+    {% endfor %}
+    {% for day in month %}
+      {% if day == 0 %}
+        <div class="grid-item">
+        </div>
+      {% else %}
+        <div class="grid-item">
+          <div class="list-group">
+            <a href="/day/{{day}}/{{monthName}}/{{year}}" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{day}}</h5>
+                <small>♥</small>
+              </div>
+              <p class="mb-1">
+                <ul>
+                  <li>Event 1</li>
+                  <li>Event 2</li>
+                </ul>
+              </small>
+            </a>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+</div>
+<br />
 
 {% endblock %}
