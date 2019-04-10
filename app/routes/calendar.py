@@ -31,8 +31,24 @@ def getMonth(month, year):
 @app.route('/calendar', methods=['GET', 'POST'],  defaults={'month': reverseMonths[int(currentmonth)], 'year': currentyear})
 @app.route('/calendar/<month>/<year>', methods=['GET', 'POST'])
 def calendar(month, year):
+    # Manages looping the months and going to the next Year
+    nextMonthYear = year
+    prevMonthYear = year
+    nextMonth = (months[month]+1)
+    prevMonth = (months[month]-1)
+    if month == "December":
+        nextMonthYear = str(int(year)+1)
+        nextMonth = 1
+    elif month == "January":
+        prevMonthYear = str(int(year)-1)
+        prevMonth = 12
+
+    nextMonthName = reverseMonths[nextMonth]
+    prevMonthName = reverseMonths[prevMonth]
     nextYear = str(int(year)+1)
     prevYear = str(int(year)-1)
-    return render_template('calendar.html', monthName = month, nextMonthName = reverseMonths[months[month]+1], prevMonthName = reverseMonths[months[month]-1],
-    month=getMonth(month, year), year=year, nextYear = nextYear, prevYear = prevYear,
+
+
+    return render_template('calendar.html', monthName = month, nextMonthName = nextMonthName, prevMonthName = prevMonthName,
+    month=getMonth(month, year), year=year, nextYear = nextYear, prevYear = prevYear, nextMonthYear = nextMonthYear, prevMonthYear = prevMonthYear,
     weekdays=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
