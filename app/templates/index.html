@@ -25,7 +25,13 @@
           <a href="/newevent" class="btn btn-lg btn-primary">New Event</a>
         </div>
         <div class="row justify-content-center">
-          {% for event in events %}
+          <ul>
+            {% for event in events %}
+              <li>
+                {{event.owner.name}} created event: {{event.title}} due on {{event.date}} at {{event.time}}
+              </li>
+            {% endfor %}
+          </ul>
         </div>
       {% else %}
         <div class="row justify-content-center">
@@ -33,6 +39,15 @@
         </div>
         <div class="row justify-content-center">
           <a href="/login" class="btn btn-lg btn-primary">Login</a>
+        </div>
+        <div class="row justify-content-center">
+          <ul>
+            {% for event in events %}
+              <li>
+                {{event.owner.name}} created event: {{event.title}} due on {{event.date}} at {{event.time}}
+              </li>
+            {% endfor %}
+          </ul>
         </div>
       {% endif %}
     </div>

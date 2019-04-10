@@ -5,25 +5,30 @@
 <div class="container">
   <div class="jumbotron">
     <div class="row">
-      <div class="col-4">
+      <div class="col-3">
         <a href="/calendar/{{month}}/{{year}}" class="btn btn-primary btn-md">Back to Calendar</a>
       </div>
-      <div class="col-8">
+      <div class="col-6">
         <h1>{{month}} {{day}}, {{year}}</h1>
+      </div>
+      <div class="col-3">
+        <a href="/newevent" class="btn btn-lg btn-primary">New Event</a>
       </div>
     </div>
     <hr>
     <div class="list-group">
-      {% for i in range(2) %}
-          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">Event {{i}}</h5>
-              <small>Finish by 12pm</small>
-            </div>
-            <p class="mb-1">
-              Description
-            </p>
-          </a>
+      {% for event in events %}
+        {% if event.owner.name == session['displayName'] and year == event.date[0] and month == event.date[1] and day|string == event.date[2] %}
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{event.title}}</h5>
+                <small>Finish by {{event.time}}</small>
+              </div>
+              <p class="mb-1">
+                {{event.desc}}
+              </p>
+            </a>
+        {% endif %}
       {% endfor %}
     </div>
   </div>

@@ -1,7 +1,8 @@
 from app.routes import app
-from flask import render_template
+from flask import render_template, session
 import calendar
 from datetime import datetime
+from .Classes import Event, User
 cal= calendar.Calendar(6)
 
 # mormal and reverse month dictionaries
@@ -49,6 +50,14 @@ def calendar(month, year):
     prevYear = str(int(year)-1)
 
 
+    #get events and format the dates for use on the calendar
+    events = Event.objects
+    for event in events:
+        event.date = event.date.strftime('%Y-%m-%d').split("-")
+        event.date[1] = reverseMonths[int(event.date[1])]
+        event.date[2] = str(int(event.date[2]))
+
     return render_template('calendar.html', monthName = month, nextMonthName = nextMonthName, prevMonthName = prevMonthName,
     month=getMonth(month, year), year=year, nextYear = nextYear, prevYear = prevYear, nextMonthYear = nextMonthYear, prevMonthYear = prevMonthYear,
-    weekdays=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
+    weekdays=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    events=events)

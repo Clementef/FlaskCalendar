@@ -3,7 +3,7 @@ from app.routes import app
 from flask import render_template, session, redirect, request
 from requests_oauth2.services import GoogleClient
 from requests_oauth2 import OAuth2BearerToken
-from .Classes import User
+from .Classes import User,Event
 
 google_auth = GoogleClient(
     client_id=("488526633771-4jb5b2vsckq58it9nggon8n3v0lblr29"
@@ -16,7 +16,10 @@ google_auth = GoogleClient(
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    events = Event.objects
+    for event in events:
+        event.date = event.date.strftime('%Y-%m-%d').split("-")
+    return render_template('index.html', events=events)
 
 @app.route('/login')
 def login():
