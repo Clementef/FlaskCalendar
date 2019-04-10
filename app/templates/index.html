@@ -5,10 +5,33 @@
 <div class="container">
   <div class="jumbotron">
     <div class="column">
-      <div class="row">
-        <h1>Index</h1>
-        <hr>
-      </div>
+      {% if session['displayName'] %}
+        <div class="row justify-content-center">
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn  btn-static">
+              <img class="rounded mx-auto d-block" height="40px" width="40px" src={{session['image']}} />
+            </button>
+            <button type="button" class="btn btn-static">
+              <h4>{{session['displayName']}}</h4>
+            </button>
+          </div>
+        </div>
+        <br />
+        <div class="row justify-content-center">
+          <a href="/calendar" class="btn btn-lg btn-primary">Calendar</a>
+        </div>
+        <br />
+        <div class="row justify-content-center">
+          <a href="/newevent" class="btn btn-lg btn-primary">New Event</a>
+        </div>
+      {% else %}
+        <div class="row justify-content-center">
+          <h1>Welcome to Flask Calendar</h1>
+        </div>
+        <div class="row justify-content-center">
+          <a href="/login" class="btn btn-lg btn-primary">Login</a>
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>

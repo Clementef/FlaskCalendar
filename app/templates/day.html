@@ -5,14 +5,14 @@
 <div class="container">
   <div class="jumbotron">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-4">
         <a href="/calendar/{{month}}/{{year}}" class="btn btn-primary btn-md">Back to Calendar</a>
       </div>
-      <div class="col-md-10">
+      <div class="col-8">
         <h1>{{month}} {{day}}, {{year}}</h1>
-        <hr>
       </div>
     </div>
+    <hr>
     <div class="list-group">
       {% for i in range(2) %}
           <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">

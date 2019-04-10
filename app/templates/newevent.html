@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="container">
+  <form method=post>
+    {{ form.hidden_tag() }}
+    {{ form.title.label }}
+    {{ form.title(class_="form-control") }}
+    <br />
+    {{ form.desc.label }}
+    {{ form.desc(class_="form-control") }}
+    <br />
+    {{ form.date.label }}
+    {{ form.date(class_="form-control") }}
+    <br />
+    {{ form.time.label }}
+    {{ form.time(class_="form-control") }}
+    <br />
+    {{form.submit()}}
+  </form>
+</div>
+
+{% endblock %}
