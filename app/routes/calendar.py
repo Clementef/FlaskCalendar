@@ -11,6 +11,8 @@ reverseMonths = {v: k for k, v in months.items()}
 
 
 # Get today's month and year if there are no arguments
+# Get day for calendar display
+currentday = str(datetime.now().day)
 currentmonth = str(datetime.now().month)
 currentyear = str(datetime.now().year)
 
@@ -60,4 +62,5 @@ def calendar(month, year):
     return render_template('calendar.html', monthName = month, nextMonthName = nextMonthName, prevMonthName = prevMonthName,
     month=getMonth(month, year), year=year, nextYear = nextYear, prevYear = prevYear, nextMonthYear = nextMonthYear, prevMonthYear = prevMonthYear,
     weekdays=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    events=events)
+    events=events,
+    currentday=currentday, currentmonth=currentmonth, monthNameReverse = months[month], currentyear=currentyear)

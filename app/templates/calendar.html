@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<div class="container-fluid">
+<div class="container">
 	<div class="row text-center">
     <div class="col-md-2">
       <a href="/calendar/{{monthName}}/{{prevYear}}" class="btn btn-primary btn-sm" role="button">Previous Year</a>
@@ -23,54 +23,62 @@
 	</div>
 </div>
 
-<div class="grid-container">
-    {% for day in weekdays%}
-    <div class="grid-item text-center align-bottom daylabel">
-      <h3>{{day}}</h3>
-    </div>
-    {% endfor %}
-    {% for day in month %}
-      {% if day == 0 %}
-        <div class="grid-item">
-        </div>
-      {% else %}
-				<div class="grid-item text-truncate h-100">
-					<div class="list-group h-100">
-						<a href="/day/{{day}}/{{monthName}}/{{year}}" class=" h-100 list-group-item list-group-item-action flex-column align-items-start">
-						  <div class="d-flex w-100 justify-content-between">
-						    <h5 class="mb-1">{{day}}</h5>
+<div class="container">
+	<div class="grid-container">
+		{% for day in weekdays%}
+		<div class="grid-item text-center align-bottom daylabel">
+			<h3>{{day}}</h3>
+		</div>
+		{% endfor %}
+		{% for day in month %}
+		{% if day == 0 %}
+		<div class="grid-item">
+		</div>
+		{% else %}
+		<div class="grid-item text-truncate h-100">
+			<div class="list-group h-100">
+				<a href="/day/{{day}}/{{monthName}}/{{year}}" class=" h-100 list-group-item list-group-item-action flex-column align-items-start">
+					<div class="d-flex w-100 justify-content-between">
+						<h5 class="mb-1">{{day}}</h5>
 
-								<!-- Check if there is an event on this day -->
-								{% set activity = namespace(found=false) %}
-								{% for event in events %}
-									{% if event.owner.name == session['displayName'] and year == event.date[0] and monthName == event.date[1] and day|string == event.date[2] %}
-										{% set activity.found = true %}
-									{% endif %}
-								{% endfor %}
+						<!-- Check if there is an event on this day -->
+						{% set activity = namespace(found=false) %}
+						{% for event in events %}
+						{% if event.owner.name == session['displayName'] and year == event.date[0] and monthName == event.date[1] and day|string == event.date[2] %}
+						{% set activity.found = true %}
+						{% endif %}
+						{% endfor %}
 
-								<!-- if there is, display the badge -->
-								{% if activity.found == True %}
-						    	<small class="event-badge">◈</small>
-								{% endif %}
-						  </div>
-						  <p class="mb-1">
-						    <ul>
-									{% for event in events %}
-										{% if event.owner.name == session['displayName'] and year == event.date[0] and monthName == event.date[1] and day|string == event.date[2] %}
-						      			<li>{{event.title}}</li>
-									{% endif %}
-									{% endfor %}
-						    </ul>
-						  </p>
-						</a>
+						<!-- if there is, display the badge -->
+						{% if day == currentday|int and monthNameReverse == currentmonth|int and year == currentyear %}
+						<small class="">
+							Today
+						</small>
+						{% endif %}
+						{% if activity.found == True %}
+						<small class="event-badge">
+							◈
+						</small>
+						{% endif %}
 					</div>
-				</div>
-      {% endif %}
-    {% endfor %}
+					<p class="mb-1">
+						<ul>
+							{% for event in events %}
+							{% if event.owner.name == session['displayName'] and year == event.date[0] and monthName == event.date[1] and day|string == event.date[2] %}
+							<li>{{event.title}}</li>
+							{% endif %}
+							{% endfor %}
+						</ul>
+					</p>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+		{% endfor %}
+	</div>
+	<br />
+	<div class="container text-center">
+		<a href="/newevent" class="btn btn-lg btn-primary">New Event</a>
+	</div>
 </div>
-<br />
-<div class="container text-center">
-	<a href="/newevent" class="btn btn-lg btn-primary">New Event</a>
-</div>
-
 {% endblock %}
