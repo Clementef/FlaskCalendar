@@ -24,30 +24,12 @@
         <div class="row justify-content-center">
           <a href="/newevent" class="btn btn-lg btn-primary">New Event</a>
         </div>
-        <div class="row justify-content-center">
-          <ul>
-            {% for event in events %}
-              <li>
-                {{event.owner.name}} created event: {{event.title}} due on {{event.date}} at {{event.time}}
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
       {% else %}
         <div class="row justify-content-center">
           <h1>Welcome to Flask Calendar</h1>
         </div>
         <div class="row justify-content-center">
           <a href="/login" class="btn btn-lg btn-primary">Login</a>
-        </div>
-        <div class="row justify-content-center">
-          <ul>
-            {% for event in events %}
-              <li>
-                {{event.owner.name}} created event: {{event.title}} due on {{event.date}} at {{event.time}}
-              </li>
-            {% endfor %}
-          </ul>
         </div>
       {% endif %}
     </div>
