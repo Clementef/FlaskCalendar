@@ -1,2 +1,2 @@
 route# FlaskCalendar
-Flask Calendar for Capstone
+A Calendar Webapp built in Python Flask
